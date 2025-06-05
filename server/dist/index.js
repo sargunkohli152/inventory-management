@@ -24,7 +24,7 @@ const app = (0, express_1.default)();
 app.use((0, cookie_parser_1.default)());
 // CORS configuration
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://inventory-management-frontend-m0y6.onrender.com'],
     credentials: true,
 }));
 app.use((0, helmet_1.default)());
