@@ -23,7 +23,7 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://inventory-management-frontend-coh7.onrender.com'],
+    origin: ['http://localhost:3000', 'https://inventory-management-frontend-m0y6.onrender.com/'],
     credentials: true,
   })
 );
