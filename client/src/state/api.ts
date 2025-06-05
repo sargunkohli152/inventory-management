@@ -92,7 +92,7 @@ export interface UpdateUserRequest {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseUrl: 'https://inventory-management-backend-coh7.onrender.com',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).global.accessToken;
