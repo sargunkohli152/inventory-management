@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ['inventory-management-backend.onrender.com'],
+  },
 };
 
 export default nextConfig;
