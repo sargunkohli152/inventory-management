@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import { resetAdmin } from './scripts/resetAdmin';
 
 // ROUTE IMPORTS
 import dashboardRoutes from './routes/dashboardRoutes';
@@ -45,6 +46,13 @@ app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/expenses', expenseRoutes);
 app.use('/admin', signupRoutes);
+
+// Run admin reset in production
+if (process.env.NODE_ENV === 'production') {
+  resetAdmin()
+    .then(() => console.log('Admin reset completed'))
+    .catch((error: unknown) => console.error('Admin reset failed:', error));
+}
 
 // SERVER
 const port = process.env.PORT ?? '3001';
