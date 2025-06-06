@@ -92,7 +92,7 @@ export interface UpdateUserRequest {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://inventory-management-backend-coh7.onrender.com',
+  baseUrl: 'https://inventory-management-backend-rpyz.onrender.com',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).global.accessToken;
