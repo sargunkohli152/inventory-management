@@ -98,7 +98,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       tokens: { accessToken },
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error logging in user' });
+    res.status(500).json({ message: 'Error logging in user', error: error });
   }
 };
 
