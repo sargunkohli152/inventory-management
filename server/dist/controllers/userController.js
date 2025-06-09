@@ -8,17 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUsers = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const prisma_1 = __importDefault(require("../lib/prisma"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield prisma.users.findMany();
+        const users = yield prisma_1.default.users.findMany();
         res.json(users);
     }
     catch (error) {
-        res.status(500).json({ message: 'Error fetching users' });
+        console.error('Database error:', error);
+        res.status(500).json({
+            message: 'Error fetching users',
+            error: process.env.NODE_ENV === 'development' ? error : undefined,
+        });
     }
 });
 exports.getUsers = getUsers;

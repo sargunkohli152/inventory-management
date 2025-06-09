@@ -89,7 +89,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error logging in user' });
+        res.status(500).json({ message: 'Error logging in user', error: error });
     }
 });
 exports.login = login;

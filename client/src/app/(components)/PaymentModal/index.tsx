@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from '../Header/index';
 import { loadStripe } from '@stripe/stripe-js';
+import { X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
@@ -12,10 +14,15 @@ type PaymentModalProps = {
 
 const PaymentModal = ({ isOpen, userEmail = '', userName = '' }: PaymentModalProps) => {
   if (!isOpen) return null;
+  const router = useRouter();
 
   const handleSubscribeClick = () => {
     const checkoutUrl = `https://buy.stripe.com/test_14A8wR0Y57IC8ha7pHbwk00?prefilled_email=${userEmail}&prefilled_name=${userName}`;
     window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleCrossClick = () => {
+    router.back();
   };
 
   return (
@@ -25,7 +32,16 @@ const PaymentModal = ({ isOpen, userEmail = '', userName = '' }: PaymentModalPro
 
       {/* Modal Content */}
       <div className="relative bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
-        <Header name="Premium Expenses Feature" />
+        <div className="flex items-center justify-between">
+          <Header name="Premium Expenses Feature" />
+          <button
+            onClick={handleCrossClick}
+            className="text-gray-400 hover:text-gray-700"
+            aria-label="Go Back"
+          >
+            <X size={24} />
+          </button>
+        </div>
 
         <div className="mt-4 space-y-4">
           <p className="text-gray-600">Unlock powerful expense tracking and analytics features:</p>

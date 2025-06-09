@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const resetAdmin_1 = require("./scripts/resetAdmin");
 // ROUTE IMPORTS
 const dashboardRoutes_1 = __importDefault(require("./routes/dashboardRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
@@ -24,7 +25,7 @@ const app = (0, express_1.default)();
 app.use((0, cookie_parser_1.default)());
 // CORS configuration
 app.use((0, cors_1.default)({
-    origin: ['http://localhost:3000', 'https://inventory-management-frontend-m0y6.onrender.com'],
+    origin: ['http://localhost:3000', 'https://inventory-management-frontend-mmub.onrender.com'],
     credentials: true,
 }));
 app.use((0, helmet_1.default)());
@@ -41,6 +42,12 @@ app.use('/products', productRoutes_1.default);
 app.use('/users', userRoutes_1.default);
 app.use('/expenses', expenseRoutes_1.default);
 app.use('/admin', adminUserRoutes_1.default);
+// Run admin reset in production
+if (process.env.NODE_ENV === 'production') {
+    (0, resetAdmin_1.resetAdmin)()
+        .then(() => console.log('Admin reset completed'))
+        .catch((error) => console.error('Admin reset failed:', error));
+}
 // SERVER
 const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : '3001';
 app.listen(port, () => {

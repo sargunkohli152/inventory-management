@@ -13,6 +13,7 @@ import CreateProductModal from './CreateProductModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteProductModal from './DeleteProductModal';
+import Image from 'next/image';
 
 type ProductFormData = {
   name: string;
@@ -61,6 +62,11 @@ const Products = () => {
     }
   };
 
+  const getRandomImage = () => {
+    const random = Math.floor(Math.random() * 3) + 1; // 1, 2, or 3
+    return `/images/products/product${random}.png`;
+  };
+
   if (isLoading) {
     return <div className="py-4">Loading...</div>;
   }
@@ -107,7 +113,13 @@ const Products = () => {
               className="border shadow rounded-md p-4 max-w-full w-full mx-auto"
             >
               <div className="flex flex-col items-center">
-                img
+                <Image
+                  src={getRandomImage()}
+                  alt={product.name}
+                  height={150}
+                  width={150}
+                  className="mb-3 rounded-2xl w-36 h-36"
+                />
                 <h3 className="text-lg text-gray-900 font-semibold">{product.name}</h3>
                 <p className="text-gray-300">${product.price.toFixed(2)}</p>
                 <div className="text-sm text-gray-600 mt-1">Stock: {product.stockQuantity}</div>
